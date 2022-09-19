@@ -1,4 +1,7 @@
 ---
+import init, { greet } from "../../wasm/pkg/wasm";
+await init();
+greet("I love wasm");
 ---
 
 <html lang="en">
