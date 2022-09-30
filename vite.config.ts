@@ -11,5 +11,8 @@ export default defineConfig({
         scss: { includePaths: ['src/lib/styles/'] }
       })
     })
-  ]
+  ],
+  build: {
+    outDir: './docs'
+  }
 });
