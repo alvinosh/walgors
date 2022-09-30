@@ -2,7 +2,7 @@ use std::cell::Cell;
 
 use wasm_bindgen::prelude::*;
 
-use crate::{log, log_u32};
+use crate::{get_coords, log, log_usize};
 
 #[repr(C)]
 #[wasm_bindgen]
@@ -20,10 +20,10 @@ pub enum Cells {
 #[wasm_bindgen]
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct World {
-    width: usize,
-    height: usize,
-    start: usize,
-    end: usize,
+    pub width: usize,
+    pub height: usize,
+    pub start: usize,
+    pub end: usize,
     cells: Vec<u8>,
 }
 
@@ -54,6 +54,14 @@ impl World {
         }
     }
 
+    pub fn dist(&self, start: usize, end: usize) -> f64 {
+        let s = get_coords(self, start);
+        let e = get_coords(self, end);
+        let dx = (e.x as f64 - s.x as f64).abs();
+        let dy = (e.y as f64 - s.y as f64).abs();
+        return (dx * dx + dy * dy).sqrt();
+    }
+
     pub fn set_start(&mut self, idx: usize) {
         self.cells[self.start] = Cells::Empty as u8;
         self.cells[idx] = Cells::Start as u8;
@@ -73,6 +81,34 @@ impl World {
     pub fn set_wall(&mut self, idx: usize) {
         if idx != self.start && idx != self.end {
             self.cells[idx] = Cells::Wall as u8;
+        }
+    }
+    pub fn set_open(&mut self, idx: usize) {
+        if idx != self.start && idx != self.end {
+            self.cells[idx] = Cells::Open as u8;
+        }
+    }
+
+    pub fn set_closed(&mut self, idx: usize) {
+        if idx != self.start && idx != self.end {
+            self.cells[idx] = Cells::Closed as u8;
+        }
+    }
+
+    pub fn set_path(&mut self, idx: usize) {
+        if idx != self.start && idx != self.end {
+            self.cells[idx] = Cells::Path as u8;
+        }
+    }
+
+    pub fn clear(&mut self) {
+        for cell in self.cells.iter_mut() {
+            if *cell == Cells::Path as u8
+                || *cell == Cells::Closed as u8
+                || *cell == Cells::Open as u8
+            {
+                *cell = Cells::Empty as u8;
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 <script lang="ts">
-  import CellSelector from "../components/CellSelector.svelte";
-  import WorldComponent from "../components/WorldComponent.svelte";
+  import CellSelector from '../components/CellSelector.svelte';
+  import WorldComponent from '../components/WorldComponent.svelte';
+  import ToolBar from '../components/ToolBar.svelte';
 </script>
 
 <div class="fixed world">
@@ -10,6 +11,9 @@
 <div class="fixed window">
   <div class="selector">
     <CellSelector />
+  </div>
+  <div class="toolbar">
+    <ToolBar />
   </div>
 </div>
 
@@ -21,8 +25,16 @@
     top: 50%;
     right: 0.5rem;
 
+    transform: translate(0, -50%);
+  }
 
-    transform: translate(0,-50%);
+  .toolbar {
+    position: absolute;
+    left: 50%;
+    top: 0.5rem;
+    transform: translate(-50%, 0);
+
+    height: 6rem;
   }
 
   .fixed {

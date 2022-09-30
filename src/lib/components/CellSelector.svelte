@@ -8,11 +8,6 @@
     class: string;
   }
 
-  let active: Cells;
-  activeCell.subscribe((value) => {
-    active = value;
-  });
-
   let options: CellOption[] = [
     {
       name: 'Eraser',
@@ -45,7 +40,7 @@
   {#each options as cell}
     <li
       class="option"
-      class:active="{cell.cell === active}"
+      class:active="{cell.cell === $activeCell}"
       on:click="{() => {
         setActive(cell.cell);
       }}"
@@ -82,10 +77,14 @@
   }
 
   li.option.active {
-    background-color: colors.$open-node-color;
+    background-color: colors.$active-tool-bar-color;
+
+    .icon {
+      border: none !important;
+    }
 
     p {
-      color: colors.$closed-node-color;
+      color: colors.$active-text-color;
     }
   }
 
