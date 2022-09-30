@@ -9,6 +9,7 @@
 
 <div
   on:click
+  on:mouseover
   transition:fade
   class:empty="{cell === Cells.Empty}"
   class:path="{cell === Cells.Path}"
@@ -17,7 +18,9 @@
   class:end="{cell === Cells.End}"
   class:open="{cell === Cells.Open}"
   class:closed="{cell === Cells.Closed}"
-  class:animate="{cell === Cells.Start}"
+  class:animate="{cell === Cells.Start ||
+    cell === Cells.End ||
+    cell === Cells.Wall}"
   class="cell"
   style="{`
     width: ${size}px;
@@ -25,7 +28,9 @@
   `}"
 ></div>
 
-<style>
+<style lang="scss">
+  @use 'nodes';
+
   .animate {
     animation-name: popup;
     animation-duration: 0.1s;
@@ -34,34 +39,6 @@
     animation-direction: alternate;
     animation-fill-mode: both;
     animation-play-state: running;
-  }
-
-  .empty {
-    background-color: #ffffff;
-  }
-
-  .path {
-    background-color: #ffec41;
-  }
-
-  .wall {
-    background-color: #0a002a;
-  }
-
-  .start {
-    background-color: rgb(255, 0, 0);
-  }
-
-  .end {
-    background-color: rgb(150, 0, 0);
-  }
-
-  .open {
-    background-color: rgb(168, 168, 255);
-  }
-
-  .closed {
-    background-color: #7a51ff;
   }
 
   @keyframes popup {

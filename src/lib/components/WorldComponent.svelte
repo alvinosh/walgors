@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { World } from 'wasm';
+  import { Cells, World } from 'wasm';
   import Cell from './Cell.svelte';
+  import { activeCell } from '../stores/stores';
 
   const CELL_SIZE = 100;
   const OFFSET = 3;
@@ -11,8 +12,36 @@
   let world: World = World.new(10, 10, 1, 1, 8, 8);
   let cells = world.get_world();
 
-  const setStart = (idx: number) => {
-    world.set_start(idx);
+  let clicked = false;
+
+  let active: Cell;
+  activeCell.subscribe((value) => {
+    active = value;
+  });
+
+  const setClick = (idx: number) => {
+    switch (active) {
+      case Cells.Start:
+        world.set_start(idx);
+        break;
+      case Cells.End:
+        world.set_end(idx);
+        break;
+    }
+
+    cells = world.get_world();
+  };
+
+  const setHover = (idx: number) => {
+    switch (active) {
+      case Cells.Wall:
+        world.set_wall(idx);
+        break;
+      case Cells.Empty:
+        world.set_empty(idx);
+        break;
+    }
+
     cells = world.get_world();
   };
 
@@ -35,6 +64,8 @@
 <svelte:window
   bind:innerHeight="{window_height}"
   bind:innerWidth="{window_width}"
+  on:mousedown="{() => (clicked = true)}"
+  on:mouseup="{() => (clicked = false)}"
 />
 
 <div
@@ -49,7 +80,10 @@
       cell="{cell}"
       size="{CELL_SIZE}"
       on:click="{() => {
-        setStart(idx);
+        setClick(idx);
+      }}"
+      on:mouseover="{() => {
+        if (clicked) setHover(idx);
       }}"
     />
   {/each}

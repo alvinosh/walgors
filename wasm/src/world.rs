@@ -59,6 +59,22 @@ impl World {
         self.cells[idx] = Cells::Start as u8;
         self.start = idx;
     }
+    pub fn set_end(&mut self, idx: usize) {
+        self.cells[self.end] = Cells::Empty as u8;
+        self.cells[idx] = Cells::End as u8;
+        self.end = idx;
+    }
+    pub fn set_empty(&mut self, idx: usize) {
+        if idx != self.start && idx != self.end {
+            self.cells[idx] = Cells::Empty as u8;
+        }
+    }
+
+    pub fn set_wall(&mut self, idx: usize) {
+        if idx != self.start && idx != self.end {
+            self.cells[idx] = Cells::Wall as u8;
+        }
+    }
 
     #[wasm_bindgen]
     pub fn get_width(&self) -> usize {

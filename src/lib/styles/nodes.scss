@@ -2,7 +2,7 @@
 
 .start {
   border: none !important;
-  //background-image: url("../../assets/star.svg");
+  background-image: url("../../assets/star.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 70%;
@@ -12,7 +12,16 @@
 
 .end {
   border: none !important;
-  //background-image: url("../../assets/bullseye.svg");
+  background-image: url("../../assets/bullseye.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
+  background-color: c.$end-node-color;
+}
+
+.eraser {
+  border: none !important;
+  background-image: url("../../assets/eraser.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 70%;
@@ -36,3 +45,13 @@
 .open {
   background-color: c.$open-node-color;
 }
+
+.empty {
+  background-color: #ffffff;
+}
+
+
+
+
+
+
