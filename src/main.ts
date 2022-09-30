@@ -12,4 +12,4 @@ const init = async () => {
   });
 };
 
-export default await init();
+export default init();
