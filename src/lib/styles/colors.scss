@@ -1,0 +1,12 @@
+$tool-bar-color: #222e50;
+$hover-color: #007991;
+$text-color: #bcd8c1;
+
+$start-node-color: $hover-color;
+$end-node-color: $hover-color;
+$path-node-color: $hover-color;
+$wall-node-color: #439a86;
+$closed-node-color: $tool-bar-color;
+$open-node-color: #e9d985;
+
+$background-color: $open-node-color;

@@ -1,0 +1,38 @@
+@use "./colors" as c;
+
+.start {
+  border: none !important;
+  //background-image: url("../../assets/star.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
+
+  background-color: c.$start-node-color;
+}
+
+.end {
+  border: none !important;
+  //background-image: url("../../assets/bullseye.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
+  background-color: c.$end-node-color;
+}
+
+.wall {
+  border: none !important;
+  background-color: c.$wall-node-color;
+}
+
+.path {
+  border: none !important;
+  background-color: c.$path-node-color;
+}
+
+.closed {
+  background-color: c.$closed-node-color;
+}
+
+.open {
+  background-color: c.$open-node-color;
+}
