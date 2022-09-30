@@ -1,6 +1,6 @@
-import wasm from "wasm";
-import "./app.css";
-import App from "./App.svelte";
+import wasm from 'wasm';
+import './app.css';
+import App from './App.svelte';
 
 const init = async () => {
   const startTime = performance.now();
@@ -8,7 +8,7 @@ const init = async () => {
   const endTime = performance.now();
   console.log(`Call to wasm init took ${endTime - startTime} milliseconds`);
   return new App({
-    target: document.getElementById("app"),
+    target: document.getElementById('app')
   });
 };
 

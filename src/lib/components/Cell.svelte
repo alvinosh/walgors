@@ -1,7 +1,8 @@
 <script lang="ts">
-  import { fade } from "svelte/transition";
+  import { fade } from 'svelte/transition';
 
-  import { Cells } from "wasm";
+  import { Cells } from 'wasm';
+
   export let cell: Cells;
   export let size: number = 10;
 </script>
@@ -9,19 +10,20 @@
 <div
   on:click
   transition:fade
-  class:empty={cell === Cells.Empty}
-  class:path={cell === Cells.Path}
-  class:wall={cell === Cells.Wall}
-  class:start={cell === Cells.Start}
-  class:end={cell === Cells.End}
-  class:open={cell === Cells.Open}
-  class:closed={cell === Cells.Closed}
-  class:animate={cell === Cells.Start}
+  class:empty="{cell === Cells.Empty}"
+  class:path="{cell === Cells.Path}"
+  class:wall="{cell === Cells.Wall}"
+  class:start="{cell === Cells.Start}"
+  class:end="{cell === Cells.End}"
+  class:open="{cell === Cells.Open}"
+  class:closed="{cell === Cells.Closed}"
+  class:animate="{cell === Cells.Start}"
   class="cell"
-  style={`
+  style="{`
     width: ${size}px;
     height:  ${size}px;
-  `}></div>
+  `}"
+></div>
 
 <style>
   .animate {
@@ -37,21 +39,27 @@
   .empty {
     background-color: #ffffff;
   }
+
   .path {
     background-color: #ffec41;
   }
+
   .wall {
     background-color: #0a002a;
   }
+
   .start {
     background-color: rgb(255, 0, 0);
   }
+
   .end {
     background-color: rgb(150, 0, 0);
   }
+
   .open {
     background-color: rgb(168, 168, 255);
   }
+
   .closed {
     background-color: #7a51ff;
   }

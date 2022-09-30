@@ -1,5 +1,5 @@
 <script lang="ts">
-  import MainLayout from "./lib/layouts/MainLayout.svelte";
+  import MainLayout from './lib/layouts/MainLayout.svelte';
 </script>
 
 <main>

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { World } from "wasm";
-  import Cell from "./Cell.svelte";
+  import { World } from 'wasm';
+  import Cell from './Cell.svelte';
 
   const CELL_SIZE = 100;
   const OFFSET = 3;
@@ -19,27 +19,38 @@
   $: {
     let cols = Math.ceil(window_width / CELL_SIZE);
     let rows = Math.ceil(window_height / CELL_SIZE);
-    if (cols >= 1 && rows >= 1) world = World.new(cols, rows, OFFSET - 1, OFFSET - 1, cols - OFFSET, rows - OFFSET);
+    if (cols >= 1 && rows >= 1)
+      world = World.new(
+        cols,
+        rows,
+        OFFSET - 1,
+        OFFSET - 1,
+        cols - OFFSET,
+        rows - OFFSET
+      );
     cells = world.get_world();
   }
 </script>
 
-<svelte:window bind:innerHeight={window_height} bind:innerWidth={window_width} />
+<svelte:window
+  bind:innerHeight="{window_height}"
+  bind:innerWidth="{window_width}"
+/>
 
 <div
   class="container"
-  style={`
+  style="{`
   grid-template-columns:repeat(${world.get_width()}, auto);
   grid-template-rows:repeat(${world.get_height()}, auto);
-`}
+`}"
 >
   {#each cells as cell, idx}
     <Cell
-      {cell}
-      size={CELL_SIZE}
-      on:click={() => {
+      cell="{cell}"
+      size="{CELL_SIZE}"
+      on:click="{() => {
         setStart(idx);
-      }}
+      }}"
     />
   {/each}
 </div>

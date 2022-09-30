@@ -15,7 +15,14 @@
 
 <style>
   .selector {
-    width: 100px;
+    width: 10rem;
+    /*height: 20rem;*/
+    position: absolute;
+    top: 50%;
+    right: 0.5rem;
+
+
+    transform: translate(0,-50%);
   }
 
   .fixed {

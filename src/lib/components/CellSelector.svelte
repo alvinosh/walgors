@@ -1,27 +1,42 @@
 <script lang="ts">
+  import { Cells } from 'wasm';
+
+  interface CellOption {
+    name: string;
+    cell: Cells;
+    icon: string;
+  }
+
+  let options: CellOption[] = [
+    {
+      name: 'Eraser',
+      cell: Cells.Empty,
+      icon: 'svelte.svg'
+    },
+    {
+      name: 'Start',
+      cell: Cells.Start,
+      icon: 'svelte.svg'
+    },
+    {
+      name: 'End',
+      cell: Cells.End,
+      icon: 'svelte.svg'
+    }
+  ];
 </script>
 
 <div class="container">
-  <div class="node-container">
-    <div class="box start"></div>
-    <div class="node-text">start</div>
-  </div>
-  <div class="node-container">
-    <div class="box end"></div>
-    <div class="node-text">end</div>
-  </div>
-  <div class="node-container">
-    <div class="box wall"></div>
-    <div class="node-text">wall</div>
-  </div>
-  <div class="node-container">
-    <div class="box eraser"></div>
-    <div class="node-text">eraser</div>
-  </div>
+  {#each options as cell}
+    <p>{cell.name}</p>
+  {/each}
 </div>
 
 <style>
   .container {
+    width: 100%;
+    height: 100%;
+
     border-radius: 15px;
 
     background-color: #222e50;
@@ -33,51 +48,5 @@
     align-items: center;
 
     overflow: hidden;
-  }
-
-  .box {
-    width: 30px;
-    height: 30px;
-
-    border-radius: 5px;
-  }
-
-  .node-text {
-    padding-left: 5px;
-    font-family: Roboto,serif;
-  }
-
-  .node-container {
-    flex-grow: 1;
-
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    align-items: center;
-
-    padding: 10px 10px;
-
-    min-width: 10vw;
-
-    transition: all 0.2s;
-
-    cursor: pointer;
-  }
-
-  .eraser {
-    border: none !important;
-    /*background-image: url("../../../assets/eraser.svg");*/
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 70%;
-    background-color: #e9d985;
-  }
-
-  .active {
-    background-color: #007991;
-  }
-
-  .node-container:hover:not(.active) {
-    color: #007991;
   }
 </style>
