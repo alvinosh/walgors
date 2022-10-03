@@ -1,3 +1,5 @@
+use std::cell::Cell;
+
 use wasm_bindgen::prelude::*;
 
 use crate::get_coords;
@@ -34,10 +36,18 @@ impl World {
         start_y: usize,
         end_x: usize,
         end_y: usize,
+        maze: bool,
     ) -> Self {
         console_error_panic_hook::set_once();
 
-        let mut cells = vec![Cells::Empty as u8; (width * height) as usize];
+        let mut cells = vec![
+            if maze {
+                Cells::Wall as u8
+            } else {
+                Cells::Empty as u8
+            };
+            (width * height) as usize
+        ];
         let start = (start_y * width + start_x) as usize;
         let end = (end_y * width + end_x) as usize;
 
@@ -110,6 +120,14 @@ impl World {
                 || *cell == Cells::Open as u8
             {
                 *cell = Cells::Empty as u8;
+            }
+        }
+    }
+
+    pub fn fill(&mut self, fill_cell: Cells) {
+        for cell in self.cells.iter_mut() {
+            if *cell != Cells::Start as u8 && *cell != Cells::End as u8 {
+                *cell = fill_cell as u8;
             }
         }
     }

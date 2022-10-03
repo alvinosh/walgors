@@ -1,10 +1,11 @@
 <script lang="ts">
-  import { Astar, Cells, World } from 'wasm';
+  import { Astar, Cells, Maze, World } from 'wasm';
   import { ToolbarActionsEnum } from '../types';
   import { activeCell, event } from '../stores';
   import Cell from './Cell.svelte';
 
-  let world: World = World.new(10, 10, 1, 1, 8, 8);
+  let world: World = World.new(10, 10, 1, 1, 8, 8, true);
+  let maze = Maze.new(world);
 
   let cells = world.get_world();
   let algorithm: Astar | undefined = undefined;
@@ -21,8 +22,16 @@
     end_x: number,
     end_y: number
   ) {
-    world = World.new(width, height, start_x, start_y, end_x, end_y);
+    world = World.new(width, height, start_x, start_y, end_x, end_y, true);
+    maze = Maze.new(world);
     cells = world.get_world();
+    tickMaze();
+  }
+
+  function tickMaze() {
+    maze.tick(world);
+    cells = world.get_world();
+    requestAnimationFrame(() => tickMaze());
   }
 
   function reset() {
@@ -85,8 +94,8 @@
     paused = false;
   }
 
-  const CELL_SIZE = 50;
-  const OFFSET = 6;
+  const CELL_SIZE = 30;
+  const OFFSET = 2;
 
   let window_height = 0;
   let window_width = 0;
@@ -166,6 +175,7 @@
   {#each cells as cell, idx}
     <Cell
       cell="{cell}"
+      idx="{idx}"
       size="{CELL_SIZE}"
       on:click="{() => {
         onClick(idx, false);

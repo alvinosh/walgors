@@ -5,6 +5,7 @@
 
   export let cell: Cells;
   export let size: number = 10;
+  export let idx: number;
 </script>
 
 <div
@@ -32,6 +33,7 @@
 
   .cell {
     border: none !important;
+    color: red;
   }
 
   .animate {

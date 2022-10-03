@@ -4,6 +4,7 @@ use wasm_bindgen::prelude::*;
 use world::{Cells, World};
 
 mod astar;
+mod maze;
 mod world;
 
 pub struct Coord {
@@ -33,6 +34,10 @@ extern "C" {
     // Multiple arguments too!
     #[wasm_bindgen(js_namespace = console, js_name = log)]
     pub fn log_many(a: &str, b: &str);
+
+    #[wasm_bindgen(js_namespace = Math, js_name = random)]
+    pub fn random() -> f64;
+
 }
 
 pub fn get_idx(world: &World, coords: &Coord) -> Option<usize> {
@@ -79,6 +84,53 @@ pub fn get_neighbors(world: &World, idx: usize) -> Vec<usize> {
     }
 
     return output;
+}
+
+pub fn get_neighbors_maze(world: &World, idx: usize) -> Vec<usize> {
+    let mut output = vec![];
+
+    let mut offsets: [isize; 4] = [
+        2,
+        -2,
+        world.get_width() as isize * 2,
+        world.get_width() as isize * -2,
+    ];
+
+    if idx % world.get_width() <= 1 {
+        offsets = [
+            0,
+            2,
+            world.get_width() as isize * 2,
+            world.get_width() as isize * -2,
+        ];
+    }
+
+    if idx % world.get_width() >= world.get_width() - 2 {
+        offsets = [
+            0,
+            -2,
+            world.get_width() as isize * 2,
+            world.get_width() as isize * -2,
+        ];
+    }
+
+    for offset in offsets {
+        if idx as isize + offset >= 0
+            && idx as isize + offset < world.get_world().len() as isize
+            && offset != 0
+        {
+            output.push((idx as isize + offset) as usize)
+        }
+    }
+
+    output
+}
+
+pub fn remove_wall(world: &mut World, from: usize, to: usize) {
+    let idx = (from + to) / 2;
+    world.set_empty(idx);
+    world.set_empty(from);
+    world.set_empty(to);
 }
 
 pub fn get_coords(world: &World, pos: usize) -> Coord {
