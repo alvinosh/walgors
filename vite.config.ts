@@ -4,6 +4,7 @@ import { ViteRsw } from 'vite-plugin-rsw';
 import sveltePreprocess from 'svelte-preprocess';
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/walgors/',
   plugins: [
     ViteRsw(),
     svelte({
