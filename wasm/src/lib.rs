@@ -1,4 +1,4 @@
-use std::{cell::Cell, vec};
+use std::vec;
 
 use wasm_bindgen::prelude::*;
 use world::{Cells, World};
@@ -37,7 +37,7 @@ extern "C" {
 
 pub fn get_idx(world: &World, coords: &Coord) -> Option<usize> {
     let idx = coords.y * world.width + coords.x;
-    if idx >= 0 && idx < world.get_world().len() {
+    if idx < world.get_world().len() {
         Some(idx)
     } else {
         None

@@ -1,10 +1,10 @@
-use std::{collections::HashMap, iter::Map};
+use std::collections::HashMap;
 use wasm_bindgen::prelude::*;
 
-use crate::{get_neighbors, log, log_label, log_labelf, log_usize, world::World};
+use crate::{get_neighbors, world::World};
 
 #[wasm_bindgen]
-struct Astar {
+pub struct Astar {
     start: usize,
     end: usize,
     open: Vec<usize>,
@@ -49,7 +49,7 @@ impl Astar {
 
         let current = find_min_index(&self.open, &self.fscore);
         if current == self.end {
-            if (self.latest == -1) {
+            if self.latest == -1 {
                 self.latest = current as isize;
             }
             return self.do_path(world);

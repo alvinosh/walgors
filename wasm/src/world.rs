@@ -1,8 +1,6 @@
-use std::cell::Cell;
-
 use wasm_bindgen::prelude::*;
 
-use crate::{get_coords, log, log_usize};
+use crate::get_coords;
 
 #[repr(C)]
 #[wasm_bindgen]

@@ -10,5 +10,6 @@ const init = async () => {
         target: document.getElementById('app')
     });
 };
-export default init();
+init();
+export default init;
 //# sourceMappingURL=main.js.map

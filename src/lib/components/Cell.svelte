@@ -1,16 +1,16 @@
 <script lang="ts">
-    import {fade} from 'svelte/transition';
+  import { fade } from 'svelte/transition';
 
-    import {Cells} from 'wasm';
+  import { Cells } from 'wasm';
 
-    export let cell: Cells;
-    export let idx: number;
-    export let size: number = 10;
+  export let cell: Cells;
+  export let size: number = 10;
 </script>
 
 <div
   on:click
   on:mouseover
+  on:focus
   transition:fade
   class:empty="{cell === Cells.Empty}"
   class:path="{cell === Cells.Path}"
