@@ -1,13 +1,10 @@
 use wasm_bindgen::prelude::*;
 
-use crate::get_neighbors;
 use crate::get_neighbors_maze;
-use crate::log_label;
 use crate::random;
 use crate::remove_wall;
 use crate::world::Cells;
 use crate::world::World;
-use std::cell;
 use std::collections::HashSet;
 use std::collections::VecDeque;
 
@@ -37,10 +34,8 @@ impl Maze {
     pub fn tick(&mut self, world: &mut World) -> bool {
         if let Some(cell_idx) = self.stack.pop_back() {
             self.current = cell_idx;
-            log_label("Cell", cell_idx);
 
             let mut nbors = get_neighbors_maze(world, cell_idx);
-            log_label("     Neibors", nbors.len());
 
             loop {
                 if nbors.len() == 0 {
@@ -49,7 +44,6 @@ impl Maze {
 
                 let rnd_idx = (random() * nbors.len() as f64).floor() as usize;
                 let n = nbors[rnd_idx];
-                log_label("     CHOSE", n);
 
                 if !self.visited.contains(&n) {
                     self.stack.push_back(cell_idx);

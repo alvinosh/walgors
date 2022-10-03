@@ -94,7 +94,7 @@
     paused = false;
   }
 
-  const CELL_SIZE = 30;
+  const CELL_SIZE = 60;
   const OFFSET = 2;
 
   let window_height = 0;
