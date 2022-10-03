@@ -61,14 +61,18 @@ impl World {
     }
 
     pub fn set_start(&mut self, idx: usize) {
-        self.cells[self.start] = Cells::Empty as u8;
-        self.cells[idx] = Cells::Start as u8;
-        self.start = idx;
+        if idx != self.start && idx != self.end {
+            self.cells[self.start] = Cells::Empty as u8;
+            self.cells[idx] = Cells::Start as u8;
+            self.start = idx;
+        }
     }
     pub fn set_end(&mut self, idx: usize) {
-        self.cells[self.end] = Cells::Empty as u8;
-        self.cells[idx] = Cells::End as u8;
-        self.end = idx;
+        if idx != self.start && idx != self.end {
+            self.cells[self.end] = Cells::Empty as u8;
+            self.cells[idx] = Cells::End as u8;
+            self.end = idx;
+        }
     }
     pub fn set_empty(&mut self, idx: usize) {
         if idx != self.start && idx != self.end {

@@ -29,7 +29,7 @@
     clicked = false;
     solving = false;
     solved = false;
-    paused = false;
+    paused = true;
     algorithm = undefined;
     world.clear();
     cells = world.get_world();
@@ -52,7 +52,7 @@
       world.clear();
       algorithm = Astar.new(world);
     }
-    if (step && paused && !solved) {
+    if (step && !solved) {
       if (algorithm.tick(world)) {
         solving = false;
         solved = true;
@@ -61,7 +61,7 @@
 
     cells = world.get_world();
     let complete = false;
-    if (!paused && !solved) {
+    if (!paused && !solved && !step) {
       complete = algorithm.tick(world);
 
       if (!complete) {
