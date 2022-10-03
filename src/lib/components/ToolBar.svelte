@@ -1,9 +1,9 @@
 <script lang="ts"
 >
     import Fa from 'svelte-fa'
-    import {faArrowRotateLeft, faPlay, faBackward, faForward, faPause} from '@fortawesome/free-solid-svg-icons'
-    import {ToolbarActionsEnum} from "../types/toolbar-actions.enum";
-    import {event} from "../stores/stores";
+    import {faArrowRotateLeft, faPlay, faArrowRotateRight, faPause} from '@fortawesome/free-solid-svg-icons'
+    import {ToolbarActionsEnum} from "../types";
+    import {event} from "../stores";
 
     let paused = false;
 
@@ -28,23 +28,23 @@
 
 
 <div class="container">
-  <div class="buttons">
-    <div class="icon" on:click={() => dispatchReset()}>
-      <Fa style="font-size: 2rem; color: #ff6363; cursor: pointer;" icon={faArrowRotateLeft}/>
-    </div>
-    <div class="icon" on:click={() => dispatchPausePlay()}>
-      <Fa style="font-size: 2rem; color: #ff6363; cursor: pointer;" icon={paused ? faPause : faPlay}/>
-    </div>
-    <div class="icon" on:click={() => dispatchStep()}>
-      <Fa style="font-size: 2rem; color: #ff6363; cursor: pointer;" icon={faForward}/>
-    </div>
+    <div class="buttons">
+        <div class="icon" on:click={() => dispatchReset()}>
+            <Fa style="font-size: 2rem; color: #ff6363; cursor: pointer;" icon={faArrowRotateLeft}/>
+        </div>
+        <div class="icon" on:click={() => dispatchPausePlay()}>
+            <Fa style="font-size: 2rem; color: #ff6363; cursor: pointer;" icon={paused ? faPause : faPlay}/>
+        </div>
+        <div class="icon" on:click={() => dispatchStep()}>
+            <Fa style="font-size: 2rem; color: #ff6363; cursor: pointer;" icon={faArrowRotateRight}/>
+        </div>
 
-  </div>
+    </div>
 </div>
 
 <style>
     .container {
-        width: 600px;
+        /*width: 600px;*/
         height: 100%;
         background-color: #000935;
         border-radius: 0.5rem;
@@ -83,6 +83,14 @@
 
     .icon:first-child:hover {
         transform: rotate(-60deg);
+    }
+
+    .icon:last-child {
+        transition: all 0.2s;
+    }
+
+    .icon:last-child:hover {
+        transform: rotate(60deg);
     }
 
 
